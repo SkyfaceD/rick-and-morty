@@ -40,6 +40,7 @@ fun RMTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = RMTypography,
+        shapes = RMShapes,
         content = content
     )
 }
