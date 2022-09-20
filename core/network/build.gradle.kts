@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.library)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -41,4 +42,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.okHttpLoggingInterceptor)
     implementation(libs.logcat)
+    implementation(libs.serialization)
 }
