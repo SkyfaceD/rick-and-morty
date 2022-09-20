@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.library)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -43,4 +45,6 @@ dependencies {
     implementation(libs.okHttpLoggingInterceptor)
     implementation(libs.logcat)
     implementation(libs.serialization)
+    implementation(libs.hiltAndroid)
+    kapt(libs.hiltAndroidCompiler)
 }
