@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.okHttpLoggingInterceptor)
     implementation(libs.logcat)
     implementation(libs.serialization)
+    implementation(libs.serializationConverter)
     implementation(libs.hiltAndroid)
     kapt(libs.hiltAndroidCompiler)
 }

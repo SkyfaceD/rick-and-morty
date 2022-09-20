@@ -1,4 +1,4 @@
-package org.skyfaced.network.util
+package org.skyfaced.network.model.filter.util
 
 enum class Gender {
     Female,
