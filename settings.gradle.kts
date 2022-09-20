@@ -17,8 +17,11 @@ dependencyResolutionManagement {
 rootProject.name = "rm"
 
 include(":app")
-include(":ui:characters")
+
 include(":core:navigation")
+include(":core:design")
+include(":core:network")
+
+include(":ui:characters")
 include(":ui:locations")
 include(":ui:episodes")
-include(":core:design")

@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.composeUiToolingPreview)
     implementation(libs.material3)
     implementation(libs.material3WindowSizeClass)
+    implementation(libs.logcat)
 
     testImplementation(libs.jUnit)
 
