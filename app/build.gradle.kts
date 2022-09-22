@@ -3,7 +3,9 @@
 plugins {
     alias(libs.plugins.application)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -72,6 +74,8 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.material3WindowSizeClass)
     implementation(libs.logcat)
+    implementation(libs.hiltAndroid)
+    kapt(libs.hiltAndroidCompiler)
 
     testImplementation(libs.jUnit)
 
