@@ -15,4 +15,9 @@ interface CharacterRepository {
      * Gets data for a specific [Character] as a flow
      */
     fun getSingleCharacterFlow(id: Int): Flow<Character>
+
+    /**
+     * Gets the available [Character] as a flow
+     */
+    fun getMultipleCharacterFlow(ids: List<Int>): Flow<List<Character>>
 }

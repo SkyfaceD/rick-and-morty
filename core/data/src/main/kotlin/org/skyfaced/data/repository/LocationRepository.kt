@@ -15,4 +15,9 @@ interface LocationRepository {
      * Gets data for a specific [Location] as a flow
      */
     fun getSingleLocationFlow(id: Int): Flow<Location>
+
+    /**
+     * Gets the available [Location] as a flow
+     */
+    fun getMultipleLocationFlow(ids: List<Int>): Flow<List<Location>>
 }

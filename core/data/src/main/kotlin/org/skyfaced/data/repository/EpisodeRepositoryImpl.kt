@@ -33,4 +33,10 @@ class EpisodeRepositoryImpl @Inject constructor(
         val result = response.asModel()
         emit(result)
     }.flowOn(Dispatchers.IO)
+
+    override fun getMultipleEpisodeFlow(ids: List<Int>): Flow<List<Episode>> = flow {
+        val response = network.getMultipleEpisodes(ids)
+        val result = response.map(EpisodeDto::asModel)
+        emit(result)
+    }.flowOn(Dispatchers.IO)
 }

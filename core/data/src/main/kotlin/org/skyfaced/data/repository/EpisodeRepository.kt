@@ -15,4 +15,9 @@ interface EpisodeRepository {
      * Gets data for a specific [Episode] as a flow
      */
     fun getSingleEpisodeFlow(id: Int): Flow<Episode>
+
+    /**
+     * Gets the available [Episode] as a flow
+     */
+    fun getMultipleEpisodeFlow(ids: List<Int>): Flow<List<Episode>>
 }

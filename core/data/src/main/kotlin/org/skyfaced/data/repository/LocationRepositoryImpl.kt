@@ -33,4 +33,10 @@ class LocationRepositoryImpl @Inject constructor(
         val result = response.asModel()
         emit(result)
     }.flowOn(Dispatchers.IO)
+
+    override fun getMultipleLocationFlow(ids: List<Int>): Flow<List<Location>> = flow {
+        val response = network.getMultipleLocations(ids)
+        val result = response.map(LocationDto::asModel)
+        emit(result)
+    }.flowOn(Dispatchers.IO)
 }

@@ -33,4 +33,10 @@ class CharacterRepositoryImpl @Inject constructor(
         val result = response.asModel()
         emit(result)
     }.flowOn(Dispatchers.IO)
+
+    override fun getMultipleCharacterFlow(ids: List<Int>): Flow<List<Character>> = flow {
+        val response = network.getMultipleCharacters(ids)
+        val result = response.map(CharacterDto::asModel)
+        emit(result)
+    }.flowOn(Dispatchers.IO)
 }
