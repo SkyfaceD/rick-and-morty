@@ -1,9 +1,9 @@
 package org.skyfaced.network
 
-import org.skyfaced.network.model.Character
-import org.skyfaced.network.model.Episode
-import org.skyfaced.network.model.InfoWrapper
-import org.skyfaced.network.model.Location
+import org.skyfaced.network.model.CharacterDto
+import org.skyfaced.network.model.EpisodeDto
+import org.skyfaced.network.model.InfoDtoWrapper
+import org.skyfaced.network.model.LocationDto
 import org.skyfaced.network.model.filter.CharacterFilter
 import org.skyfaced.network.model.filter.LocationFilter
 import org.skyfaced.network.model.filter.EpisodeFilter
@@ -29,16 +29,16 @@ interface RMApi {
     suspend fun getAllCharacters(
         @Query("page") page: Int,
         @QueryMap filters: Map<String, String>,
-    ): InfoWrapper<Character>
+    ): InfoDtoWrapper<CharacterDto>
 
     @GET("character/{id}")
-    suspend fun getSingleCharacter(@Path("id") id: Int): Character
+    suspend fun getSingleCharacter(@Path("id") id: Int): CharacterDto
 
     /**
      * @param ids should be positive integer values separated by comma.
      */
     @GET("character/[{id}]")
-    suspend fun getMultipleCharacters(@Path("ids") ids: String): List<Character>
+    suspend fun getMultipleCharacters(@Path("ids") ids: String): List<CharacterDto>
 
     /**
      * @param filters Available parameters:
@@ -54,16 +54,19 @@ interface RMApi {
     suspend fun getAllLocations(
         @Query("page") page: Int,
         @QueryMap filters: Map<String, String>,
-    ): InfoWrapper<Location>
+    ): InfoDtoWrapper<LocationDto>
 
+    /**
+     *
+     */
     @GET("location/{id}")
-    suspend fun getSingleLocation(@Path("id") id: Int): Location
+    suspend fun getSingleLocation(@Path("id") id: Int): LocationDto
 
     /**
      * @param ids should be positive integer values separated by comma.
      */
     @GET("location/[{id}]")
-    suspend fun getMultipleLocations(@Path("ids") ids: String): List<Location>
+    suspend fun getMultipleLocations(@Path("ids") ids: String): List<LocationDto>
 
     /**
      * @param filters Available parameters:
@@ -78,14 +81,14 @@ interface RMApi {
     suspend fun getAllEpisodes(
         @Query("page") page: Int,
         @QueryMap filters: Map<String, String>,
-    ): InfoWrapper<Episode>
+    ): InfoDtoWrapper<EpisodeDto>
 
     @GET("episode/{id}")
-    suspend fun getSingleEpisode(@Path("id") id: Int): Episode
+    suspend fun getSingleEpisode(@Path("id") id: Int): EpisodeDto
 
     /**
      * @param ids should be positive integer values separated by comma.
      */
     @GET("episode/[{id}]")
-    suspend fun getMultipleEpisodes(@Path("ids") ids: String): List<Episode>
+    suspend fun getMultipleEpisodes(@Path("ids") ids: String): List<EpisodeDto>
 }

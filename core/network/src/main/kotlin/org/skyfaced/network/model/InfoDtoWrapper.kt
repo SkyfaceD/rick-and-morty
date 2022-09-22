@@ -4,8 +4,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class InfoWrapper<T>(
-    val info: Info,
+data class InfoDtoWrapper<T>(
+    val info: InfoDto,
     @SerialName("results")
-    val data: T,
+    val data: List<T>,
 )

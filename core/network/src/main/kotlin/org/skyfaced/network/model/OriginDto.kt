@@ -3,7 +3,7 @@ package org.skyfaced.network.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Origin(
+data class OriginDto(
     val name: String,
     val url: String,
 )

@@ -1,16 +1,14 @@
 package org.skyfaced.network.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Episode(
+data class LocationDto(
     val id: Int,
     val name: String,
-    @SerialName("air_date")
-    val airDate: String,
-    val episode: String,
-    val characters: List<String>,
+    val type: String,
+    val dimension: String,
+    val residents: List<String>,
     val url: String,
     val created: String,
 )
