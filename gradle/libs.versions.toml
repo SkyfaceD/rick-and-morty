@@ -22,6 +22,7 @@ serialization = "1.4.0"
 serializationConverter = "0.8.0"
 hilt = "2.43.2"
 hiltNavigationCompose = "1.0.0"
+coil = "2.2.1"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,7 @@ serializationConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" } # kapt
 hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 [bundles]
 
