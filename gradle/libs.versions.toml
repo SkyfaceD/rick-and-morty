@@ -30,6 +30,7 @@ lifecycleViewModelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-c
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+composeMaterial = { module = "androidx.compose.material:material", version.ref = "compose" }
 composeUiTestJUnit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" } # androidTestImplementation
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" } # debugImplementation
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" } # debugImplementation
