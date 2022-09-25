@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="lbl_seen_in">
+        <item quantity="zero">Was not seen in any of the episodes</item>
+        <item quantity="one">Was seen in %s episode</item>
+        <item quantity="two">Seen in %s episodes</item>
+        <item quantity="few">Seen in %s episodes</item>
+        <item quantity="many">Seen in %s episodes</item>
+        <item quantity="other">Seen in %s episodes</item>
+    </plurals>
+
+    <plurals name="lbl_found_characters">
+        <item quantity="zero">Characters not found</item>
+        <item quantity="one">Found %s character</item>
+        <item quantity="two">Found %s characters</item>
+        <item quantity="few">Found %s characters</item>
+        <item quantity="many">Found %s characters</item>
+        <item quantity="other">Found %s characters</item>
+    </plurals>
+</resources>

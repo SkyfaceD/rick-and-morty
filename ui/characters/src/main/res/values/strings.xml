@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lbl_refresh_header">Refresh header</string>
+    <string name="lbl_cool_characters">Cool characters</string>
+    <string name="lbl_first_seen">First seen in</string>
+    <string name="lbl_last_known_location">Last known location</string>
+</resources>

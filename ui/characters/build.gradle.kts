@@ -3,6 +3,8 @@
 plugins {
     alias(libs.plugins.library)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -47,7 +49,19 @@ android {
 
 dependencies {
     implementation(project(":core:navigation"))
+    implementation(project(":core:data"))
+    implementation(project(":core:network"))
+    implementation(project(":core:common"))
+
     implementation(libs.composeUi)
     implementation(libs.composeUiToolingPreview)
+    implementation(libs.composeMaterial)
     implementation(libs.material3)
+    implementation(libs.hiltAndroid)
+    kapt(libs.hiltAndroidCompiler)
+    implementation(libs.hiltNavigationCompose)
+    implementation(libs.lifecycleRuntimeCompose)
+    implementation(libs.lifecycleViewModelCompose)
+    implementation(libs.coilCompose)
+    implementation(libs.accompanistPlaceholderMaterial)
 }
