@@ -15,13 +15,13 @@ interface RMNetworkDataSource {
 
     suspend fun getMultipleCharacters(ids: List<Int>): List<CharacterDto>
 
-    suspend fun getAllLocations(page: Int, filters: LocationFilter): InfoDtoWrapper<LocationDto>
+    suspend fun getPagedLocations(page: Int, filters: LocationFilter): InfoDtoWrapper<LocationDto>
 
     suspend fun getSingleLocation(id: Int): LocationDto
 
     suspend fun getMultipleLocations(ids: List<Int>): List<LocationDto>
 
-    suspend fun getAllEpisodes(page: Int, filters: EpisodeFilter): InfoDtoWrapper<EpisodeDto>
+    suspend fun getPagedEpisodes(page: Int, filters: EpisodeFilter): InfoDtoWrapper<EpisodeDto>
 
     suspend fun getSingleEpisode(id: Int): EpisodeDto
 

@@ -9,7 +9,7 @@ interface CharacterRepository {
     /**
      * Gets the available [Character] as a flow
      */
-    fun getAllCharactersFlow(page: Int, filter: CharacterFilter): Flow<InfoWrapper<Character>>
+    fun getPagedCharactersFlow(page: Int, filter: CharacterFilter): Flow<InfoWrapper<Character>>
 
     /**
      * Gets data for a specific [Character] as a flow

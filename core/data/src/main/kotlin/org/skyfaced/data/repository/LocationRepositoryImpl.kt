@@ -17,11 +17,11 @@ import javax.inject.Inject
 class LocationRepositoryImpl @Inject constructor(
     private val network: RMNetworkDataSource
 ) : LocationRepository {
-    override fun getAllLocationsFlow(
+    override fun getPagedLocationsFlow(
         page: Int,
         filter: LocationFilter
     ): Flow<InfoWrapper<Location>> = flow {
-        val response = network.getAllLocations(page, filter)
+        val response = network.getPagedLocations(page, filter)
         val info = response.info.asModel()
         val characters = response.data.map(LocationDto::asModel)
         val result = info wrap characters

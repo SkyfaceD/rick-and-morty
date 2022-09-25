@@ -9,7 +9,7 @@ interface EpisodeRepository {
     /**
      * Gets the available [Episode] as a flow
      */
-    fun getAllEpisodesFlow(page: Int, filter: EpisodeFilter): Flow<InfoWrapper<Episode>>
+    fun getPagedEpisodesFlow(page: Int, filter: EpisodeFilter): Flow<InfoWrapper<Episode>>
 
     /**
      * Gets data for a specific [Episode] as a flow

@@ -9,7 +9,7 @@ interface LocationRepository {
     /**
      * Gets the available [Location] as a flow
      */
-    fun getAllLocationsFlow(page: Int, filter: LocationFilter): Flow<InfoWrapper<Location>>
+    fun getPagedLocationsFlow(page: Int, filter: LocationFilter): Flow<InfoWrapper<Location>>
 
     /**
      * Gets data for a specific [Location] as a flow

@@ -26,7 +26,7 @@ interface RMApi {
      * @see <a href="https://rickandmortyapi.com/documentation/#filter-characters">API source</a>
      */
     @GET("character")
-    suspend fun getAllCharacters(
+    suspend fun getPagedCharacters(
         @Query("page") page: Int,
         @QueryMap filters: Map<String, String>,
     ): InfoDtoWrapper<CharacterDto>
@@ -51,7 +51,7 @@ interface RMApi {
      * @see <a href="https://rickandmortyapi.com/documentation/#filter-locations">API source</a>
      */
     @GET("location")
-    suspend fun getAllLocations(
+    suspend fun getPagedLocations(
         @Query("page") page: Int,
         @QueryMap filters: Map<String, String>,
     ): InfoDtoWrapper<LocationDto>
@@ -78,7 +78,7 @@ interface RMApi {
      * @see <a href="https://rickandmortyapi.com/documentation/#filter-episodes">API source</a>
      */
     @GET("episode")
-    suspend fun getAllEpisodes(
+    suspend fun getPagedEpisodes(
         @Query("page") page: Int,
         @QueryMap filters: Map<String, String>,
     ): InfoDtoWrapper<EpisodeDto>

@@ -17,11 +17,11 @@ import javax.inject.Inject
 class EpisodeRepositoryImpl @Inject constructor(
     private val network: RMNetworkDataSource
 ) : EpisodeRepository {
-    override fun getAllEpisodesFlow(
+    override fun getPagedEpisodesFlow(
         page: Int,
         filter: EpisodeFilter
     ): Flow<InfoWrapper<Episode>> = flow {
-        val response = network.getAllEpisodes(page, filter)
+        val response = network.getPagedEpisodes(page, filter)
         val info = response.info.asModel()
         val characters = response.data.map(EpisodeDto::asModel)
         val result = info wrap characters

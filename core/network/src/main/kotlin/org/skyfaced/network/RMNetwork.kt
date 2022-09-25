@@ -44,25 +44,28 @@ class RMNetwork @Inject constructor(
     override suspend fun getAllCharacters(
         page: Int,
         filter: CharacterFilter
-    ): InfoDtoWrapper<CharacterDto> = api.getAllCharacters(page, filter.asMap())
+    ): InfoDtoWrapper<CharacterDto> = api.getPagedCharacters(page, filter.asMap())
 
     override suspend fun getSingleCharacter(id: Int): CharacterDto = api.getSingleCharacter(id)
 
     override suspend fun getMultipleCharacters(ids: List<Int>): List<CharacterDto> =
         api.getMultipleCharacters(ids.joinToString(separator = ","))
 
-    override suspend fun getAllLocations(
+    override suspend fun getPagedLocations(
         page: Int,
         filters: LocationFilter
-    ): InfoDtoWrapper<LocationDto> = api.getAllLocations(page, filters.asMap())
+    ): InfoDtoWrapper<LocationDto> = api.getPagedLocations(page, filters.asMap())
 
     override suspend fun getSingleLocation(id: Int): LocationDto = api.getSingleLocation(id)
 
     override suspend fun getMultipleLocations(ids: List<Int>): List<LocationDto> =
         api.getMultipleLocations(ids.joinToString(separator = ","))
 
-    override suspend fun getAllEpisodes(page: Int, filters: EpisodeFilter): InfoDtoWrapper<EpisodeDto> =
-        api.getAllEpisodes(page, filters.asMap())
+    override suspend fun getPagedEpisodes(
+        page: Int,
+        filters: EpisodeFilter
+    ): InfoDtoWrapper<EpisodeDto> =
+        api.getPagedEpisodes(page, filters.asMap())
 
     override suspend fun getSingleEpisode(id: Int): EpisodeDto = api.getSingleEpisode(id)
 

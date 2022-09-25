@@ -17,7 +17,7 @@ import javax.inject.Inject
 class CharacterRepositoryImpl @Inject constructor(
     private val network: RMNetworkDataSource
 ) : CharacterRepository {
-    override fun getAllCharactersFlow(
+    override fun getPagedCharactersFlow(
         page: Int,
         filter: CharacterFilter
     ): Flow<InfoWrapper<Character>> = flow {
