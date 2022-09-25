@@ -1,14 +1,16 @@
 package org.skyfaced.data.model
 
 import org.skyfaced.network.model.CharacterDto
+import org.skyfaced.network.model.filter.util.Gender
+import org.skyfaced.network.model.filter.util.Status
 
 data class Character(
     val id: Int,
     val name: String,
-    val status: String,
+    val status: Status,
     val species: String,
     val type: String,
-    val gender: String,
+    val gender: Gender,
     val origin: Origin,
     val location: Origin,
     val image: String,
