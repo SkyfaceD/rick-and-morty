@@ -6,3 +6,8 @@ enum class Gender {
     Genderless,
     Unknown;
 }
+
+fun String?.asGender() = when (this) {
+    null -> Gender.Unknown
+    else -> Gender.values().firstOrNull { type -> type.name == this } ?: Gender.Unknown
+}

@@ -5,3 +5,8 @@ enum class Status {
     Dead,
     Unknown;
 }
+
+fun String?.asStatus() = when (this) {
+    null -> Status.Unknown
+    else -> Status.values().firstOrNull { type -> type.name == this } ?: Status.Unknown
+}
