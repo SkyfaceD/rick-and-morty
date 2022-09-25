@@ -48,7 +48,7 @@ class RMNetwork @Inject constructor(
 
     override suspend fun getSingleCharacter(id: Int): CharacterDto = api.getSingleCharacter(id)
 
-    override suspend fun getMultipleCharacters(ids: List<String>): List<CharacterDto> =
+    override suspend fun getMultipleCharacters(ids: List<Int>): List<CharacterDto> =
         api.getMultipleCharacters(ids.joinToString(separator = ","))
 
     override suspend fun getAllLocations(
@@ -58,7 +58,7 @@ class RMNetwork @Inject constructor(
 
     override suspend fun getSingleLocation(id: Int): LocationDto = api.getSingleLocation(id)
 
-    override suspend fun getMultipleLocations(ids: List<String>): List<LocationDto> =
+    override suspend fun getMultipleLocations(ids: List<Int>): List<LocationDto> =
         api.getMultipleLocations(ids.joinToString(separator = ","))
 
     override suspend fun getAllEpisodes(page: Int, filters: EpisodeFilter): InfoDtoWrapper<EpisodeDto> =
@@ -66,6 +66,6 @@ class RMNetwork @Inject constructor(
 
     override suspend fun getSingleEpisode(id: Int): EpisodeDto = api.getSingleEpisode(id)
 
-    override suspend fun getMultipleEpisodes(ids: List<String>): List<EpisodeDto> =
+    override suspend fun getMultipleEpisodes(ids: List<Int>): List<EpisodeDto> =
         api.getMultipleEpisodes(ids.joinToString(separator = ","))
 }

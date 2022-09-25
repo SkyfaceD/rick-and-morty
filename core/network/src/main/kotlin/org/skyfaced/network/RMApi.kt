@@ -5,8 +5,8 @@ import org.skyfaced.network.model.EpisodeDto
 import org.skyfaced.network.model.InfoDtoWrapper
 import org.skyfaced.network.model.LocationDto
 import org.skyfaced.network.model.filter.CharacterFilter
-import org.skyfaced.network.model.filter.LocationFilter
 import org.skyfaced.network.model.filter.EpisodeFilter
+import org.skyfaced.network.model.filter.LocationFilter
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -37,7 +37,7 @@ interface RMApi {
     /**
      * @param ids should be positive integer values separated by comma.
      */
-    @GET("character/[{id}]")
+    @GET("character/[{ids}]")
     suspend fun getMultipleCharacters(@Path("ids") ids: String): List<CharacterDto>
 
     /**
@@ -65,7 +65,7 @@ interface RMApi {
     /**
      * @param ids should be positive integer values separated by comma.
      */
-    @GET("location/[{id}]")
+    @GET("location/[{ids}]")
     suspend fun getMultipleLocations(@Path("ids") ids: String): List<LocationDto>
 
     /**
@@ -89,6 +89,6 @@ interface RMApi {
     /**
      * @param ids should be positive integer values separated by comma.
      */
-    @GET("episode/[{id}]")
+    @GET("episode/[{ids}]")
     suspend fun getMultipleEpisodes(@Path("ids") ids: String): List<EpisodeDto>
 }
