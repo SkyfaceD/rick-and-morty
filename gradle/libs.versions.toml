@@ -24,6 +24,7 @@ hilt = "2.43.2"
 hiltNavigationCompose = "1.0.0"
 coil = "2.2.1"
 accompanist = "0.26.4-beta"
+kotlinxCoroutines = "1.6.4"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,8 @@ hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", vers
 hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 accompanistPlaceholderMaterial = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 [bundles]
 
