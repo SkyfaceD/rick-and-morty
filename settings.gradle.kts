@@ -22,6 +22,7 @@ include(":core:navigation")
 include(":core:design")
 include(":core:network")
 include(":core:data")
+include(":core:common")
 
 include(":ui:characters")
 include(":ui:locations")
