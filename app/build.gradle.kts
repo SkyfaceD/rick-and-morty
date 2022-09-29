@@ -67,7 +67,7 @@ dependencies {
     implementation(project(":ui:episodes"))
 
     implementation(libs.coreKtx)
-    implementation(libs.lifecycleRuntimeKtx)
+    implementation(libs.lifecycleRuntimeCompose)
     implementation(libs.activityCompose)
     implementation(libs.composeUi)
     implementation(libs.composeUiToolingPreview)
