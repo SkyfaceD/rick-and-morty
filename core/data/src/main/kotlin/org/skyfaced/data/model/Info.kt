@@ -12,6 +12,6 @@ data class Info(
 fun InfoDto.asModel() = Info(
     count = count,
     pages = pages,
-    next = next?.substringAfterLast('/')?.toIntOrNull(),
-    previous = previous?.substringAfterLast('/')?.toIntOrNull(),
+    next = next?.substringAfterLast('=')?.toIntOrNull(),
+    previous = previous?.substringAfterLast('=')?.toIntOrNull(),
 )
