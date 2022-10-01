@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="lbl_found_locations">
+        <item quantity="zero">Locations not found</item>
+        <item quantity="one">Found %s location</item>
+        <item quantity="two">Found %s locations</item>
+        <item quantity="few">Found %s locations</item>
+        <item quantity="many">Found %s locations</item>
+        <item quantity="other">Found %s locations</item>
+    </plurals>
+
+    <plurals name="lbl_found_residents">
+        <item quantity="zero">Residents not found</item>
+        <item quantity="one">Found %s resident</item>
+        <item quantity="two">Found %s residents</item>
+        <item quantity="few">Found %s residents</item>
+        <item quantity="many">Found %s residents</item>
+        <item quantity="other">Found %s residents</item>
+    </plurals>
+</resources>
