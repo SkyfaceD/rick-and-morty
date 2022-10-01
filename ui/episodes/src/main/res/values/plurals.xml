@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="lbl_found_episodes">
+        <item quantity="zero">Episodes not found</item>
+        <item quantity="one">Found %s episode</item>
+        <item quantity="two">Found %s episodes</item>
+        <item quantity="few">Found %s episodes</item>
+        <item quantity="many">Found %s episodes</item>
+        <item quantity="other">Found %s episodes</item>
+    </plurals>
+
+    <plurals name="lbl_featured_characters">
+        <item quantity="zero">There were no characters in this episode</item>
+        <item quantity="one">This episode featured %s character</item>
+        <item quantity="two">This episode featured %s characters</item>
+        <item quantity="few">This episode featured %s characters</item>
+        <item quantity="many">This episode featured %s characters</item>
+        <item quantity="other">This episode featured %s characters</item>
+    </plurals>
+</resources>
