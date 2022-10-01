@@ -7,14 +7,14 @@ data class Location(
     val name: String,
     val type: String,
     val dimension: String,
-    val residents: List<Int>,
+    val residents: List<CharacterShort>,
 )
 
 fun LocationDto.asModel() = Location(
     id = id,
     name = name,
     type = type,
-    dimension = dimension,
-    residents = residents.map { it.substringAfterLast('/').toInt() },
+    dimension = if (dimension == "unknown") "" else dimension,
+    residents = residents.map { CharacterShort(it.substringAfterLast('/').toInt()) }
 )
 
