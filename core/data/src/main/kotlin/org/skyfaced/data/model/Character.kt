@@ -11,12 +11,10 @@ data class Character(
     val species: String,
     val type: String,
     val gender: Gender,
-    val origin: Origin,
-    val location: Origin,
+    val originLocation: LocationShort?,
+    val lastLocation: LocationShort?,
     val image: String,
-    val episode: List<String>,
-    val url: String,
-    val created: String,
+    val episodes: List<Int>,
 )
 
 fun CharacterDto.asModel() = Character(
@@ -26,10 +24,8 @@ fun CharacterDto.asModel() = Character(
     species = species,
     type = type,
     gender = gender,
-    origin = origin.asModel(),
-    location = location.asModel(),
+    originLocation = origin.asModelOrNull(),
+    lastLocation = location.asModelOrNull(),
     image = image,
-    episode = episode,
-    url = url,
-    created = created,
+    episodes = episode.map { it.substringAfterLast('/').toInt() },
 )

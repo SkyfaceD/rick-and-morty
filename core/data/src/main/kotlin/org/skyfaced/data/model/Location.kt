@@ -7,9 +7,7 @@ data class Location(
     val name: String,
     val type: String,
     val dimension: String,
-    val residents: List<String>,
-    val url: String,
-    val created: String,
+    val residents: List<Int>,
 )
 
 fun LocationDto.asModel() = Location(
@@ -17,8 +15,6 @@ fun LocationDto.asModel() = Location(
     name = name,
     type = type,
     dimension = dimension,
-    residents = residents,
-    url = url,
-    created = created,
+    residents = residents.map { it.substringAfterLast('/').toInt() },
 )
 

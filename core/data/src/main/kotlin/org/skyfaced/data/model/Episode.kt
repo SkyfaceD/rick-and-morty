@@ -7,9 +7,7 @@ data class Episode(
     val name: String,
     val airDate: String,
     val episode: String,
-    val characters: List<String>,
-    val url: String,
-    val created: String,
+    val characters: List<Int>,
 )
 
 fun EpisodeDto.asModel() = Episode(
@@ -17,7 +15,5 @@ fun EpisodeDto.asModel() = Episode(
     name = name,
     airDate = airDate,
     episode = episode,
-    characters = characters,
-    url = url,
-    created = created,
+    characters = characters.map { it.substringAfterLast('/').toInt() },
 )

@@ -16,8 +16,8 @@ data class CharacterDto(
     val type: String,
     @Serializable(GenderSerializer::class)
     val gender: Gender,
-    val origin: OriginDto,
-    val location: OriginDto,
+    val origin: LocationShortDto,
+    val location: LocationShortDto,
     val image: String,
     val episode: List<String>,
     val url: String,
