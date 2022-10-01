@@ -1,7 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <string name="lbl_refresh_header">Refresh header</string>
     <string name="lbl_cool_characters">Cool characters</string>
     <string name="lbl_first_seen">First seen in</string>
     <string name="lbl_last_known_location">Last known location</string>
+    <string name="lbl_ok">OK</string>
+    <string name="lbl_open">Open</string>
+    <string name="lbl_origin_location">Origin location</string>
+    <string name="lbl_refresh_header">Refresh header</string>
+    <string name="lbl_unknown">Unknown</string>
+
+    <string name="placeholder_episode">Episode %s</string>
 </resources>

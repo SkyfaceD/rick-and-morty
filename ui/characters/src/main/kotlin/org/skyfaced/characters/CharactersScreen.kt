@@ -6,18 +6,24 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Badge
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -47,6 +54,7 @@ import org.skyfaced.characters.vm.CharacterViewModel
 import org.skyfaced.characters.vm.CharactersUiState
 import org.skyfaced.characters.vm.HeaderUiState
 import org.skyfaced.data.model.Character
+import org.skyfaced.data.model.LocationShort
 import org.skyfaced.network.model.filter.util.Status
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -62,7 +70,11 @@ fun CharactersRoute(
         headerUiState = headerUiState,
         characterUiState = characterUiState,
         modifier = modifier,
-        onHeaderRefreshClick = viewModel::headerRefresh
+        onHeaderRefreshClick = viewModel::headerRefresh,
+        onShowAdditionalInfoClick = viewModel::showAdditionalInfoDialog,
+        onCloseAdditionalInfoClick = viewModel::closeAdditionalInfoDialog,
+        onLocationClick = { /* TODO Open location details */ },
+        onEpisodeClick = { /* TODO Open episode details */ }
     )
 }
 
@@ -73,6 +85,10 @@ fun CharactersScreen(
     characterUiState: CharactersUiState,
     modifier: Modifier = Modifier,
     onHeaderRefreshClick: () -> Unit,
+    onShowAdditionalInfoClick: (Character) -> Unit,
+    onCloseAdditionalInfoClick: () -> Unit,
+    onLocationClick: (LocationShort) -> Unit,
+    onEpisodeClick: (Int) -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -84,6 +100,17 @@ fun CharactersScreen(
             Box(modifier = Modifier.size(1.dp))
         },
         content = {
+            if (characterUiState is CharactersUiState.Success) {
+                if (characterUiState.isAdditionalInfoVisible && characterUiState.additionalInfo != null) {
+                    CharacterAdditionalInfoDialog(
+                        character = characterUiState.additionalInfo,
+                        onDismiss = onCloseAdditionalInfoClick,
+                        onLocationClick = onLocationClick,
+                        onEpisodeClick = onEpisodeClick,
+                    )
+                }
+            }
+
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -92,7 +119,10 @@ fun CharactersScreen(
                     onRefreshClick = onHeaderRefreshClick
                 )
 
-                characters(state = characterUiState)
+                characters(
+                    state = characterUiState,
+                    onShowAdditionalInfoClick = onShowAdditionalInfoClick,
+                )
             }
         }
     )
@@ -100,7 +130,8 @@ fun CharactersScreen(
 
 @OptIn(ExperimentalComposeUiApi::class)
 private fun LazyListScope.characters(
-    state: CharactersUiState
+    state: CharactersUiState,
+    onShowAdditionalInfoClick: (Character) -> Unit,
 ) {
     when (state) {
         is CharactersUiState.Success -> {
@@ -122,7 +153,8 @@ private fun LazyListScope.characters(
                         character = character,
                         onClick = {
                             // TODO Open details
-                        }
+                        },
+                        onShowAdditionalInfoClick = onShowAdditionalInfoClick
                     )
 
                     if (idx != state.characters.size) Spacer(modifier = Modifier.height(8.dp))
@@ -160,6 +192,7 @@ private fun CharacterItem(
     character: Character,
     modifier: Modifier = Modifier,
     onClick: (Character) -> Unit,
+    onShowAdditionalInfoClick: (Character) -> Unit,
 ) = ElevatedCard(
     modifier = modifier.fillMaxWidth(),
     onClick = { onClick(character) },
@@ -191,9 +224,7 @@ private fun CharacterItem(
                     style = MaterialTheme.typography.titleLarge,
                 )
 
-                IconButton(onClick = {
-                    // TODO Show dialog with "Last known location" and "First seen episode" information
-                }) {
+                IconButton(onClick = { onShowAdditionalInfoClick(character) }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_info),
                         contentDescription = null
@@ -228,8 +259,8 @@ private fun CharacterItem(
             Text(
                 text = pluralStringResource(
                     R.plurals.lbl_seen_in,
-                    character.episode.size,
-                    character.episode.size
+                    character.episodes.size,
+                    character.episodes.size
                 ),
                 color = contentColorFor(MaterialTheme.colorScheme.surface).copy(
                     alpha = 0.6f
@@ -440,6 +471,129 @@ private fun HeaderItemPlaceHolder(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@Composable
+private fun CharacterAdditionalInfoDialog(
+    character: Character,
+    onDismiss: () -> Unit,
+    onLocationClick: (LocationShort) -> Unit,
+    onEpisodeClick: (Int) -> Unit,
+) = Dialog(
+    onDismissRequest = onDismiss
+) {
+    Surface(shape = MaterialTheme.shapes.extraLarge, tonalElevation = 6.dp) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 24.dp, bottom = 18.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                modifier = Modifier.padding(AdditionalInfoTitlePadding),
+                text = character.name,
+                style = MaterialTheme.typography.headlineSmall
+            )
+
+            Row(
+                modifier = Modifier.padding(AdditionalInfoPadding),
+                verticalAlignment = Alignment.Top
+            ) {
+                val origin = character.originLocation
+
+                LabeledContent(
+                    modifier = Modifier.weight(1f),
+                    label = stringResource(R.string.lbl_origin_location),
+                ) {
+                    Text(text = origin?.name ?: stringResource(R.string.lbl_unknown), maxLines = 2)
+                }
+
+                if (origin != null) OpenButton { onLocationClick(origin) }
+            }
+
+            Row(
+                modifier = Modifier.padding(AdditionalInfoPadding),
+                verticalAlignment = Alignment.Top
+            ) {
+                val last = character.lastLocation
+
+                LabeledContent(
+                    modifier = Modifier.weight(1f),
+                    label = stringResource(R.string.lbl_last_known_location),
+                ) {
+                    Text(text = last?.name ?: stringResource(R.string.lbl_unknown), maxLines = 2)
+                }
+
+
+                if (last != null) OpenButton { onLocationClick(last) }
+            }
+
+            LabeledContent(
+                labelModifier = Modifier.padding(AdditionalInfoPadding),
+                label = pluralStringResource(
+                    R.plurals.lbl_seen_in,
+                    character.episodes.size,
+                    character.episodes.size
+                ),
+            ) {
+                LazyRow(
+                    contentPadding = AdditionalInfoPadding,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(character.episodes) { episode ->
+                        AssistChip(
+                            leadingIcon = {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_episode),
+                                    contentDescription = null
+                                )
+                            },
+                            label = {
+                                Text(stringResource(R.string.placeholder_episode, episode))
+                            },
+                            onClick = { onEpisodeClick(episode) }
+                        )
+                    }
+                }
+            }
+
+            TextButton(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(AdditionalInfoPadding),
+                onClick = onDismiss
+            ) {
+                Text(stringResource(R.string.lbl_ok))
+            }
+        }
+    }
+}
+
+@Composable
+private fun LabeledContent(
+    label: String,
+    modifier: Modifier = Modifier,
+    labelModifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) = Column(
+    modifier = modifier
+) {
+    Text(modifier = labelModifier, text = "$label:", style = MaterialTheme.typography.labelMedium)
+
+    content()
+}
+
+@Composable
+private fun OpenButton(
+    onClick: () -> Unit
+) = Button(
+    contentPadding = PaddingValues(start = 4.dp, end = 4.dp, bottom = 2.dp),
+    modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+    onClick = onClick
+) {
+    Text(stringResource(R.string.lbl_open))
+}
+
 @Composable
 private fun Modifier.shimmer(
     shape: Shape = MaterialTheme.shapes.medium
@@ -468,3 +622,6 @@ private val HeaderTextPadding = PaddingValues(all = 8.dp)
 
 private val CharacterContentPadding =
     PaddingValues(top = 2.dp, bottom = 4.dp, start = 12.dp, end = 2.dp)
+
+private val AdditionalInfoTitlePadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 16.dp)
+private val AdditionalInfoPadding = PaddingValues(horizontal = 24.dp)

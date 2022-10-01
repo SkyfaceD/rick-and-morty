@@ -5,12 +5,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.skyfaced.characters.util.INITIAL_PAGE
 import org.skyfaced.characters.util.MAX_CHARACTERS_COUNT
@@ -31,30 +28,45 @@ class CharacterViewModel @Inject constructor(
     private val _headerUiState = MutableStateFlow<HeaderUiState>(HeaderUiState.Loading)
     val headerUiState = _headerUiState.asStateFlow()
 
+    private val _characterUiState = MutableStateFlow<CharactersUiState>(CharactersUiState.Loading)
+    val characterUiState = _characterUiState.asStateFlow()
+
     init {
-        viewModelScope.launch {
-            fetchHeader()
+        viewModelScope.launch { fetchHeader() }
+        viewModelScope.launch { fetchCharacters() }
+    }
+
+    fun headerRefresh() {
+        viewModelScope.launch { fetchHeader() }
+    }
+
+    fun closeAdditionalInfoDialog() {
+        val state = characterUiState.value
+        if (state is CharactersUiState.Success) {
+            _characterUiState.value =
+                state.copy(isAdditionalInfoVisible = false, additionalInfo = null)
         }
     }
 
-    val characterUiState: StateFlow<CharactersUiState> = characterUiState(
-        page = INITIAL_PAGE,
-        characterRepository = characterRepository,
-        characterFilter = CharacterFilter(),
-    ).stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000L),
-        initialValue = CharactersUiState.Loading
-    )
-
-    fun headerRefresh() {
-        viewModelScope.launch {
-            fetchHeader()
+    fun showAdditionalInfoDialog(character: Character) {
+        val state = characterUiState.value
+        if (state is CharactersUiState.Success) {
+            _characterUiState.value =
+                state.copy(isAdditionalInfoVisible = true, additionalInfo = character)
         }
     }
 
     private suspend fun fetchHeader() {
         _headerUiState.emitAll(headerUiState(characterRepository = characterRepository))
+    }
+
+    private suspend fun fetchCharacters() {
+        _characterUiState.emitAll(
+            characterUiState(
+                page = INITIAL_PAGE,
+                characterRepository = characterRepository
+            )
+        )
     }
 }
 
