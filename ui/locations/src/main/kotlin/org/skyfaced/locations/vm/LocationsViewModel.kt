@@ -3,7 +3,6 @@ package org.skyfaced.locations.vm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -51,7 +50,6 @@ private fun locationUiState(
 
     return pagedLocationsFlow.asResult()
         .map { result ->
-            delay(5000)
             when (result) {
                 is Result.Success -> LocationUiState.Success(result.data.info, result.data.data)
                 is Result.Failure -> LocationUiState.Failure
