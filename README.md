@@ -1,4 +1,4 @@
-<h1 align="center">Rick and Morty</h1>
+<h1 align="center">Rick and Morty (work-in-progress 🚧)</h1>
 
 # LICENSE
 
